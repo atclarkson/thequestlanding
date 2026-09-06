@@ -2,10 +2,11 @@
 
 Single static page teaser for *The Quest*. No build step, no dependencies.
 
-## Deploy on Cloudflare Pages
+## Deploy on Cloudflare
 
-1. Connect this repo in Cloudflare Pages.
-2. Build command: (none)
-3. Build output directory: `/`
+Connect this repo in the Cloudflare dashboard ("Workers & Pages" → Create → import this repo).
 
-That's it — `index.html` is served as-is.
+- **Build command:** (leave empty)
+- **Deploy command:** `npx wrangler deploy`
+
+`wrangler.jsonc` tells Wrangler to serve this directory as static assets — no Worker script needed.
