@@ -13,7 +13,5 @@ Connect this repo in the Cloudflare dashboard ("Workers & Pages" → Create → 
 
 ## Email signup
 
-The form posts to Formspree (`index.html`, the `<form>` action). Create a free
-form at [formspree.io](https://formspree.io) and swap `YOUR_FORM_ID` for the
-real one before launch — or replace the action with Mailchimp / ConvertKit /
-Buttondown if you'd rather use one of those.
+The form posts to a Formspree endpoint (`index.html`, the `<form>` action).
+Submissions land in the Formspree dashboard at formspree.io.
