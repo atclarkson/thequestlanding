@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f6f2">
   <meta name="description" content="The Quest is an unscripted family travel competition: 24 hours of game time, spread across four days. One family against one city.">
-  <title>The Quest — A Family vs. A City</title>
+  <title>The Quest — Players vs. City</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23F7F6F2'/%3E%3Ccircle cx='29' cy='28' r='18' fill='none' stroke='%230B0B0B' stroke-width='8'/%3E%3Cpath d='M18 16 32 27 25 34Z' fill='%230B0B0B'/%3E%3Cpath d='M29 30 53 56 37 38Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
   <style>
     :root {
@@ -67,6 +67,12 @@
 
     .brand img { width: clamp(150px, 18vw, 218px); height: auto; }
 
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .sr-only {
       position: absolute;
       width: 1px;
@@ -91,6 +97,29 @@
       transform: rotate(2deg);
       font-size: .9rem;
       white-space: nowrap;
+    }
+
+    .youtube-cta {
+      display: inline-flex;
+      min-height: 42px;
+      padding: 9px 16px 7px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 3px solid var(--ink);
+      background: var(--red);
+      color: white;
+      box-shadow: 3px 3px 0 var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .youtube-cta svg { width: 21px; height: 21px; flex: 0 0 auto; fill: currentColor; }
+
+    .youtube-cta:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
     }
 
     .hero {
@@ -221,9 +250,10 @@
     }
 
     .signup-note {
-      margin: 13px 0 0;
+      margin: 18px 0 0;
       font-size: .86rem;
       font-weight: 700;
+      line-height: 1.4;
     }
 
     .scoreboard {
@@ -333,12 +363,20 @@
       text-align: center;
     }
 
-    .finale-mark { width: 92px; margin: 0 auto 27px; }
+    .finale-mark { width: 92px; height: auto; margin: 0 auto 27px; object-fit: contain; }
     .finale h2 { max-width: 900px; margin: 0 auto 23px; }
     .finale > .shell > p { max-width: 680px; margin: 0 auto 38px; font-size: 1.2rem; font-weight: 700; }
 
+    .finale-youtube {
+      width: max-content;
+      min-height: 54px;
+      margin: 0 auto 42px;
+      padding: 12px 23px 10px;
+      font-size: 1rem;
+    }
+
     .finale .signup { margin: 0 auto; text-align: left; }
-    .finale .signup-note { text-align: center; }
+    .finale .signup-note { margin-top: 24px; text-align: center; }
 
     footer {
       border-top: 4px solid var(--ink);
@@ -377,6 +415,9 @@
       .topbar { padding: 12px 0; }
       .brand img { width: 142px; }
       .status { font-size: .72rem; padding-inline: 10px; }
+      .top-actions .status { display: none; }
+      .top-actions { gap: 0; }
+      .youtube-cta { padding-inline: 12px; font-size: .78rem; }
       .hero { min-height: 760px; border-width: 4px; box-shadow: 5px 5px 0 var(--ink); }
       .hero-copy { min-height: 752px; padding: 35px 20px; }
       .hook { margin-top: 24px; }
@@ -401,14 +442,20 @@
     <a class="brand condensed" href="#top" aria-label="The Quest, back to top">
       <img src="assets/quest-logo.png" alt="The Quest" width="720" height="240">
     </a>
-    <span class="status condensed">In development</span>
+    <div class="top-actions">
+      <span class="status condensed">In development</span>
+      <a class="youtube-cta condensed" href="https://www.youtube.com/@thequestgame" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+        Subscribe on YouTube
+      </a>
+    </div>
   </header>
 
   <main id="top">
     <section class="shell hero" aria-labelledby="hero-title">
-      <img class="hero-image" src="assets/quest-family-city.webp" alt="A family racing through a city laid out like a colorful game board" width="1586" height="992" fetchpriority="high">
+      <img class="hero-image" src="assets/quest-family-city-v2.webp" alt="A mom, dad and their three daughters racing through a city laid out like a colorful game board" width="1586" height="992" fetchpriority="high">
       <div class="hero-copy">
-        <p class="eyebrow condensed">A family vs. a city</p>
+        <p class="eyebrow condensed">Players vs. City</p>
         <h1 id="hero-title" class="sr-only">The Quest</h1>
         <img class="hero-logo" src="assets/quest-logo.png" alt="" width="720" height="240">
         <p class="hook condensed">24 hours of game time. Four days to beat the city.</p>
@@ -477,6 +524,10 @@
         <p class="section-kicker condensed">Coming to YouTube</p>
         <h2 id="final-title" class="condensed">The first city is waiting.</h2>
         <p>Get the season announcement, first look and launch date before the clock starts.</p>
+        <a class="youtube-cta finale-youtube condensed" href="https://www.youtube.com/@thequestgame" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+          Subscribe on YouTube
+        </a>
         <form class="signup" action="https://formspree.io/f/moeqndpb" method="POST">
           <label class="condensed" for="email-bottom">Join the first-to-know list</label>
           <input id="email-bottom" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required>
