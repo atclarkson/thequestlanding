@@ -7,18 +7,17 @@
   <meta name="description" content="The Quest is an unscripted family travel competition: 24 hours of game time, spread across four days. One family against one city.">
   <title>The Quest — Players vs. City</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23F7F6F2'/%3E%3Ccircle cx='29' cy='28' r='18' fill='none' stroke='%230B0B0B' stroke-width='8'/%3E%3Cpath d='M18 16 32 27 25 34Z' fill='%230B0B0B'/%3E%3Cpath d='M29 30 53 56 37 38Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --structure: #0b0b0b;
-      --information: #f7f6f2;
-      --action: #ff4b1f;
-      --route: #0089ff;
-      --objective: #ffb400;
+      --paper: #f7f6f2;
+      --ink: #0b0b0b;
+      --red: #ff4b1f;
+      --blue: #0089ff;
+      --yellow: #ffb400;
+      --green: #00c853;
+      --purple: #8a2be2;
       --white: #ffffff;
-      --keyline: 2px;
+      --shadow: 8px 8px 0 var(--ink);
     }
 
     * { box-sizing: border-box; }
@@ -28,11 +27,11 @@
     body {
       margin: 0;
       min-width: 320px;
-      color: var(--structure);
-      background-color: var(--information);
-      background-image: radial-gradient(rgba(11, 11, 11, .16) 1.2px, transparent 1.2px);
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(rgba(11, 11, 11, .14) 1.2px, transparent 1.2px);
       background-size: 18px 18px;
-      font-family: 'Inter', "Helvetica Neue", Arial, sans-serif;
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
       font-size: 16px;
       line-height: 1.5;
     }
@@ -40,16 +39,38 @@
     a { color: inherit; }
     img { display: block; max-width: 100%; }
 
-    .display {
-      font-family: 'Montserrat', 'Arial Black', sans-serif;
+    .condensed {
+      font-family: Gotham, "Arial Black", "Helvetica Neue", Arial, sans-serif;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: .03em;
+      letter-spacing: .055em;
     }
 
     .shell {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand img { width: clamp(150px, 18vw, 218px); height: auto; }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .sr-only {
@@ -64,107 +85,119 @@
       border: 0;
     }
 
-    /* ---------- topbar ---------- */
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 18px 0;
-      border-bottom: var(--keyline) solid var(--structure);
-    }
-
-    .brand {
+    .status {
       display: inline-flex;
       align-items: center;
-      text-decoration: none;
-    }
-
-    .brand img { width: clamp(150px, 18vw, 218px); height: auto; }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    /* ---------- flat tag / pennant (checkpoint cell) ---------- */
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 7px 20px 5px 14px;
-      font-size: .85rem;
+      min-height: 36px;
+      padding: 7px 14px 5px;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: 3px 3px 0 var(--ink);
+      transform: rotate(2deg);
+      font-size: .9rem;
       white-space: nowrap;
-      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
     }
 
-    .tag.objective { background: var(--objective); color: var(--structure); }
-    .tag.structure { background: var(--structure); color: var(--white); }
-    .tag.route { background: var(--route); color: var(--white); }
-
-    /* ---------- flat action button ---------- */
-
-    .btn {
+    .youtube-cta {
       display: inline-flex;
-      min-height: 46px;
-      padding: 9px 20px 7px 16px;
+      min-height: 42px;
+      padding: 9px 16px 7px;
       align-items: center;
       justify-content: center;
       gap: 9px;
-      background: var(--action);
-      color: var(--white);
+      border: 3px solid var(--ink);
+      background: var(--red);
+      color: white;
+      box-shadow: 3px 3px 0 var(--ink);
       text-decoration: none;
       white-space: nowrap;
-      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
-      transition: background-color .12s ease;
+      transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .btn svg { width: 21px; height: 21px; flex: 0 0 auto; fill: currentColor; }
-    .btn:hover { background: var(--structure); }
-    .btn:focus-visible { outline: 3px solid var(--route); outline-offset: 3px; }
+    .youtube-cta svg { width: 21px; height: 21px; flex: 0 0 auto; fill: currentColor; }
 
-    /* ---------- hero ---------- */
+    .youtube-cta:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
 
     .hero {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: clamp(28px, 5vw, 64px);
-      align-items: center;
-      padding: clamp(56px, 9vw, 108px) 0 clamp(48px, 7vw, 84px);
+      position: relative;
+      min-height: 720px;
+      overflow: hidden;
+      border: 5px solid var(--ink);
+      background: var(--blue);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(247,246,242,.98) 0%, rgba(247,246,242,.92) 35%, rgba(247,246,242,.16) 68%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      min-height: 710px;
+      width: min(620px, 58%);
+      padding: clamp(36px, 6vw, 76px);
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
     }
 
     .eyebrow {
-      margin: 0 0 24px;
+      display: inline-block;
+      margin: 0 0 22px;
+      padding: 7px 13px 5px;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      background: var(--blue);
+      color: white;
+      box-shadow: 3px 3px 0 var(--ink);
+      font-size: .9rem;
     }
 
     h1 {
       margin: 0;
       max-width: 720px;
-      font-size: clamp(3.6rem, 6.4vw, 5.6rem);
-      line-height: .86;
+      font-size: clamp(4.7rem, 10vw, 8.8rem);
+      line-height: .82;
+      letter-spacing: .01em !important;
     }
 
     .hero-logo {
-      width: min(100%, 420px);
+      width: min(100%, 560px);
       height: auto;
-      margin: 0 0 26px;
+      margin: 0;
     }
 
     .hook {
-      margin: 0 0 16px;
-      max-width: 560px;
-      font-size: clamp(1.5rem, 2.6vw, 2.15rem);
-      line-height: 1.05;
+      margin: 28px 0 12px;
+      max-width: 590px;
+      font-size: clamp(1.65rem, 3vw, 2.55rem);
+      line-height: .98;
     }
 
     .promise {
       margin: 0 0 30px;
       max-width: 500px;
-      font-size: 1.05rem;
-      font-weight: 600;
+      font-size: 1.08rem;
+      font-weight: 700;
     }
 
     .signup {
@@ -176,14 +209,14 @@
 
     .signup label {
       grid-column: 1 / -1;
-      font-size: .92rem;
-      font-weight: 700;
+      font-size: .95rem;
     }
 
     .signup input,
     .signup button {
-      min-height: 50px;
-      border: var(--keyline) solid var(--structure);
+      min-height: 54px;
+      border: 3px solid var(--ink);
+      border-radius: 0;
       font: inherit;
     }
 
@@ -191,133 +224,96 @@
       min-width: 0;
       padding: 12px 15px;
       background: var(--white);
-      color: var(--structure);
-      font-weight: 600;
+      color: var(--ink);
+      font-weight: 700;
     }
 
     .signup input:focus-visible,
     .signup button:focus-visible,
     .brand:focus-visible {
-      outline: 3px solid var(--route);
-      outline-offset: 3px;
+      outline: 4px solid var(--yellow);
+      outline-offset: 4px;
     }
 
     .signup button {
-      padding: 10px 22px 8px 16px;
-      background: var(--action);
-      color: var(--white);
+      padding: 10px 21px 8px;
+      background: var(--red);
+      color: white;
+      box-shadow: 4px 4px 0 var(--ink);
       cursor: pointer;
-      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-      transition: background-color .12s ease;
+      transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .signup button:hover { background: var(--structure); }
+    .signup button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
 
     .signup-note {
-      margin: 16px 0 0;
-      font-size: .85rem;
-      font-weight: 600;
-      color: #46433d;
-    }
-
-    /* ---------- hero map panel ---------- */
-
-    .map-panel {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      width: 100%;
-      border: var(--keyline) solid var(--structure);
-      background:
-        radial-gradient(rgba(11, 11, 11, .22) 1.4px, transparent 1.4px) 0 0/14px 14px,
-        var(--information);
-      overflow: hidden;
-    }
-
-    .map-panel svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-    .route-line {
-      fill: none;
-      stroke: var(--route);
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-dasharray: 9 9;
-      animation: dash 5s linear infinite;
-    }
-
-    @keyframes dash { to { stroke-dashoffset: -360; } }
-
-    .map-caption {
-      position: absolute;
-      left: 14px;
-      bottom: 12px;
-      font-size: .72rem;
+      margin: 18px 0 0;
+      font-size: .86rem;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--structure);
+      line-height: 1.4;
     }
 
-    /* ---------- field readouts (scoreboard) ---------- */
-
-    .readouts {
+    .scoreboard {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: clamp(10px, 2vw, 16px);
-      padding: clamp(28px, 5vw, 48px) 0;
-      border-top: var(--keyline) solid var(--structure);
-      border-bottom: var(--keyline) solid var(--structure);
+      gap: 14px;
+      margin: -34px auto 0;
+      position: relative;
+      z-index: 3;
+      width: min(940px, calc(100% - 64px));
     }
 
-    .readout {
-      border: var(--keyline) solid var(--structure);
+    .score {
+      padding: 18px 14px 14px;
+      border: 4px solid var(--ink);
       background: var(--white);
-      padding: 16px 14px 14px;
+      box-shadow: 5px 5px 0 var(--ink);
+      text-align: center;
+      transform: rotate(-1deg);
     }
 
-    .readout-bar { height: 4px; margin-bottom: 14px; }
-    .readout.c-route .readout-bar { background: var(--route); }
-    .readout.c-structure .readout-bar { background: var(--structure); }
-    .readout.c-action .readout-bar { background: var(--action); }
-    .readout.c-objective .readout-bar { background: var(--objective); }
+    .score:nth-child(2) { background: var(--yellow); transform: rotate(1deg); }
+    .score:nth-child(3) { background: var(--red); color: white; transform: rotate(-.5deg); }
+    .score:nth-child(4) { background: var(--blue); color: white; transform: rotate(1deg); }
 
-    .readout strong { display: block; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: .9; }
-    .readout span { display: block; margin-top: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; }
-
-    /* ---------- manifesto ---------- */
+    .score strong { display: block; font-size: clamp(2.2rem, 5vw, 3.7rem); line-height: .9; }
+    .score span { display: block; margin-top: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: .13em; font-size: .75rem; }
 
     .manifesto {
       display: grid;
       grid-template-columns: .78fr 1.22fr;
       gap: clamp(40px, 8vw, 110px);
-      padding: clamp(72px, 11vw, 130px) 0;
+      padding: clamp(110px, 14vw, 175px) 0 clamp(90px, 12vw, 150px);
       align-items: start;
     }
 
-    .section-kicker { margin: 0 0 16px; color: var(--action); font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
-    h2 { margin: 0; font-size: clamp(2.7rem, 6vw, 5.4rem); line-height: .88; }
+    .section-kicker { margin: 0 0 16px; color: var(--red); font-size: 1rem; }
+    h2 { margin: 0; font-size: clamp(3.1rem, 7vw, 6.5rem); line-height: .86; }
 
     .manifesto-copy {
-      padding-top: 10px;
-      font-size: clamp(1.1rem, 1.9vw, 1.4rem);
-      font-weight: 600;
-      line-height: 1.4;
+      padding-top: 12px;
+      font-size: clamp(1.2rem, 2.1vw, 1.65rem);
+      font-weight: 700;
+      line-height: 1.35;
     }
 
-    .manifesto-copy p { margin: 0 0 22px; }
+    .manifesto-copy p { margin: 0 0 25px; }
 
-    .rule {
-      height: var(--keyline);
-      width: 64px;
-      margin: 26px 0;
-      background: var(--structure);
+    .black-rule {
+      height: 7px;
+      width: 82px;
+      margin: 31px 0;
+      background: var(--ink);
     }
-
-    /* ---------- mechanics (route plates) ---------- */
 
     .mechanics-wrap {
-      padding: clamp(56px, 9vw, 100px) 0;
-      border-top: var(--keyline) solid var(--structure);
-      border-bottom: var(--keyline) solid var(--structure);
+      padding: clamp(68px, 10vw, 120px) 0;
+      border-top: 5px solid var(--ink);
+      border-bottom: 5px solid var(--ink);
+      background: var(--yellow);
     }
 
     .mechanics-head {
@@ -325,106 +321,130 @@
       justify-content: space-between;
       gap: 30px;
       align-items: end;
-      margin-bottom: 44px;
+      margin-bottom: 42px;
     }
 
-    .mechanics-head p { max-width: 380px; margin: 0; font-weight: 600; }
+    .mechanics-head p { max-width: 410px; margin: 0; font-weight: 700; }
 
-    .plates {
+    .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: clamp(24px, 4vw, 40px);
+      gap: 24px;
     }
 
-    .plate-number {
-      display: block;
-      margin-bottom: 10px;
-      font-size: .85rem;
-      font-weight: 700;
-      color: #6b675e;
+    .card {
+      position: relative;
+      min-height: 320px;
+      padding: 29px;
+      border: 4px solid var(--ink);
+      background: var(--white);
+      box-shadow: 7px 7px 0 var(--ink);
     }
 
-    .plate-bar { height: 4px; width: 46px; margin-bottom: 18px; }
-    .plate.c-route .plate-bar { background: var(--route); }
-    .plate.c-action .plate-bar { background: var(--action); }
-    .plate.c-objective .plate-bar { background: var(--objective); }
+    .card:nth-child(2) { background: var(--blue); color: white; transform: translateY(18px); }
+    .card:nth-child(3) { background: var(--red); color: white; }
 
-    .plate h3 { margin: 0 0 12px; font-size: 1.9rem; line-height: .95; }
-    .plate p { margin: 0; font-weight: 500; }
+    .card-number {
+      display: inline-grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 58px;
+      border: 3px solid currentColor;
+      border-radius: 50%;
+      font-size: 1.2rem;
+    }
 
-    /* ---------- finale ---------- */
+    .card h3 { margin: 0 0 12px; font-size: 2.15rem; line-height: .95; }
+    .card p { margin: 0; font-weight: 700; }
 
     .finale {
-      padding: clamp(72px, 11vw, 130px) 0;
+      padding: clamp(80px, 12vw, 150px) 0;
       text-align: center;
     }
 
-    .finale-mark { width: 76px; height: auto; margin: 0 auto 24px; object-fit: contain; }
-    .finale h2 { max-width: 900px; margin: 0 auto 20px; }
-    .finale > .shell > p { max-width: 640px; margin: 0 auto 34px; font-size: 1.1rem; font-weight: 600; }
+    .finale-mark { width: 92px; height: auto; margin: 0 auto 27px; object-fit: contain; }
+    .finale h2 { max-width: 900px; margin: 0 auto 23px; }
+    .finale > .shell > p { max-width: 680px; margin: 0 auto 38px; font-size: 1.2rem; font-weight: 700; }
 
-    .finale .btn { width: max-content; margin: 0 auto 38px; }
+    .finale-youtube {
+      width: max-content;
+      min-height: 54px;
+      margin: 0 auto 42px;
+      padding: 12px 23px 10px;
+      font-size: 1rem;
+    }
+
     .finale .signup { margin: 0 auto; text-align: left; }
-    .finale .signup-note { margin-top: 20px; text-align: center; }
-
-    /* ---------- footer ---------- */
+    .finale .signup-note { margin-top: 24px; text-align: center; }
 
     footer {
-      border-top: var(--keyline) solid var(--structure);
-      background: var(--structure);
-      color: var(--white);
+      border-top: 4px solid var(--ink);
+      background: var(--ink);
+      color: white;
     }
 
     .footer-inner {
       display: flex;
-      min-height: 74px;
+      min-height: 90px;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      font-size: .85rem;
-      font-weight: 600;
     }
 
     .footer-inner p { margin: 0; }
 
-    /* ---------- responsive ---------- */
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .map-panel { max-width: 460px; margin: 0 auto; }
-      .manifesto { grid-template-columns: 1fr; gap: 30px; }
-      .plates { grid-template-columns: 1fr; }
-      .readouts { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 820px) {
+      .hero { min-height: 760px; }
+      .hero-image { object-position: 62% center; }
+      .hero::after { background: linear-gradient(180deg, rgba(247,246,242,.98) 0%, rgba(247,246,242,.92) 48%, rgba(247,246,242,.18) 80%, transparent 100%); }
+      .hero-copy { width: 100%; min-height: 750px; justify-content: flex-start; padding: 46px 32px; }
+      h1 { font-size: clamp(4.5rem, 22vw, 7.5rem); }
+      .scoreboard { grid-template-columns: repeat(2, 1fr); }
+      .manifesto { grid-template-columns: 1fr; gap: 34px; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: 0; }
+      .card:nth-child(2) { transform: none; }
+      .card-number { margin-bottom: 38px; }
       .mechanics-head { display: block; }
-      .mechanics-head p { margin-top: 20px; }
+      .mechanics-head p { margin-top: 24px; }
     }
 
     @media (max-width: 560px) {
       .shell { width: min(100% - 22px, 1180px); }
       .topbar { padding: 12px 0; }
       .brand img { width: 142px; }
-      .top-actions .tag { display: none; }
-      .btn { padding-inline: 14px; font-size: .82rem; }
+      .status { font-size: .72rem; padding-inline: 10px; }
+      .top-actions .status { display: none; }
+      .top-actions { gap: 0; }
+      .youtube-cta { padding-inline: 12px; font-size: .78rem; }
+      .hero { min-height: 760px; border-width: 4px; box-shadow: 5px 5px 0 var(--ink); }
+      .hero-copy { min-height: 752px; padding: 35px 20px; }
+      .hook { margin-top: 24px; }
       .signup { grid-template-columns: 1fr; }
       .signup label { grid-column: auto; }
       .signup button { width: 100%; }
-      .footer-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 18px; }
+      .scoreboard { width: calc(100% - 40px); gap: 10px; }
+      .score { padding: 15px 8px 12px; box-shadow: 3px 3px 0 var(--ink); }
+      .manifesto { padding-top: 95px; }
+      .card { padding: 24px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 22px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .route-line { animation: none; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
   <header class="shell topbar">
-    <a class="brand" href="#top" aria-label="The Quest, back to top">
+    <a class="brand condensed" href="#top" aria-label="The Quest, back to top">
       <img src="assets/quest-logo.png" alt="The Quest" width="720" height="240">
     </a>
     <div class="top-actions">
-      <span class="tag objective display">In development</span>
-      <a class="btn display" href="https://www.youtube.com/@thequestgame" target="_blank" rel="noopener noreferrer">
+      <span class="status condensed">In development</span>
+      <a class="youtube-cta condensed" href="https://www.youtube.com/@thequestgame" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
         Subscribe on YouTube
       </a>
@@ -433,56 +453,37 @@
 
   <main id="top">
     <section class="shell hero" aria-labelledby="hero-title">
-      <div>
-        <span class="tag structure display eyebrow">Players vs. City</span>
+      <img class="hero-image" src="assets/quest-family-city-v2.webp" alt="A mom, dad and their three daughters racing through a city laid out like a colorful game board" width="1586" height="992" fetchpriority="high">
+      <div class="hero-copy">
+        <p class="eyebrow condensed">Players vs. City</p>
         <h1 id="hero-title" class="sr-only">The Quest</h1>
         <img class="hero-logo" src="assets/quest-logo.png" alt="" width="720" height="240">
-        <p class="hook display">24 hours of game time. Four days to beat the city.</p>
+        <p class="hook condensed">24 hours of game time. Four days to beat the city.</p>
         <p class="promise">Nothing is scripted. Every choice counts, every setback is real, and the ending is unknown.</p>
         <form class="signup" action="https://formspree.io/f/moeqndpb" method="POST">
-          <label class="display" for="email-top">Be first to know when the game begins</label>
+          <label class="condensed" for="email-top">Be first to know when the game begins</label>
           <input id="email-top" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required>
-          <button class="display" type="submit">Join the list</button>
+          <button class="condensed" type="submit">Join the list</button>
         </form>
         <p class="signup-note">One email when the first season is ready. No spam.</p>
       </div>
-
-      <div class="map-panel" role="img" aria-label="Abstract map of a city with a route connecting checkpoints to a crown jewel">
-        <svg viewBox="0 0 400 400" aria-hidden="true">
-          <g fill="none" stroke="var(--structure)" stroke-width="1.5" opacity=".55">
-            <rect x="34" y="42" width="86" height="64"/>
-            <rect x="150" y="30" width="60" height="46"/>
-            <rect x="240" y="52" width="98" height="80"/>
-            <rect x="46" y="150" width="64" height="90"/>
-            <rect x="150" y="170" width="80" height="60"/>
-            <rect x="260" y="180" width="72" height="100"/>
-            <rect x="60" y="280" width="100" height="70"/>
-            <rect x="200" y="290" width="90" height="66"/>
-          </g>
-          <path class="route-line" d="M64 292 C 120 250, 110 200, 180 200 S 260 150, 250 92 S 300 60, 300 60"/>
-          <circle cx="64" cy="292" r="7" fill="var(--information)" stroke="var(--structure)" stroke-width="2"/>
-          <circle cx="180" cy="200" r="7" fill="var(--information)" stroke="var(--structure)" stroke-width="2"/>
-          <circle cx="300" cy="60" r="10" fill="var(--objective)" stroke="var(--structure)" stroke-width="2"/>
-        </svg>
-        <span class="map-caption">Zone 04 &middot; Crown Jewel</span>
-      </div>
     </section>
 
-    <section class="shell readouts" aria-label="The competition at a glance">
-      <div class="readout c-route"><div class="readout-bar"></div><strong class="display">24</strong><span>Game hours</span></div>
-      <div class="readout c-structure"><div class="readout-bar"></div><strong class="display">4</strong><span>Days</span></div>
-      <div class="readout c-action"><div class="readout-bar"></div><strong class="display">1</strong><span>Family</span></div>
-      <div class="readout c-objective"><div class="readout-bar"></div><strong class="display">1</strong><span>City</span></div>
+    <section class="scoreboard" aria-label="The competition at a glance">
+      <div class="score"><strong class="condensed">24</strong><span>Game hours</span></div>
+      <div class="score"><strong class="condensed">4</strong><span>Days</span></div>
+      <div class="score"><strong class="condensed">1</strong><span>Family</span></div>
+      <div class="score"><strong class="condensed">1</strong><span>City</span></div>
     </section>
 
     <section class="shell manifesto" aria-labelledby="city-plays-title">
       <div>
-        <p class="section-kicker">Not a travel vlog</p>
-        <h2 id="city-plays-title" class="display">The city plays back.</h2>
+        <p class="section-kicker condensed">Not a travel vlog</p>
+        <h2 id="city-plays-title" class="condensed">The city plays back.</h2>
       </div>
       <div class="manifesto-copy">
         <p>A family takes on a city built into a living game board. They race the clock, face challenges and fight to claim its most valuable places.</p>
-        <div class="rule" aria-hidden="true"></div>
+        <div class="black-rule" aria-hidden="true"></div>
         <p>But the city has moves of its own. Plans break. Routes change. What the family fails to protect comes back harder.</p>
         <p>No script. No guaranteed win. Just four days to find out who takes the city.</p>
       </div>
@@ -492,29 +493,26 @@
       <div class="shell">
         <div class="mechanics-head">
           <div>
-            <p class="section-kicker">The game</p>
-            <h2 id="game-title" class="display">Simple to follow.<br>Hard to win.</h2>
+            <p class="section-kicker condensed">The game</p>
+            <h2 id="game-title" class="condensed">Simple to follow.<br>Hard to win.</h2>
           </div>
-          <p>We&rsquo;re keeping the full rulebook sealed for now. Here&rsquo;s what matters when the clock starts.</p>
+          <p>We’re keeping the full rulebook sealed for now. Here’s what matters when the clock starts.</p>
         </div>
-        <div class="plates">
-          <article class="plate c-route">
-            <span class="plate-number">01</span>
-            <div class="plate-bar"></div>
-            <h3 class="display">Race the clock</h3>
+        <div class="cards">
+          <article class="card">
+            <span class="card-number condensed">01</span>
+            <h3 class="condensed">Race the clock</h3>
             <p>Six game hours a day. Every journey, challenge and wrong turn costs something.</p>
           </article>
-          <article class="plate c-action">
-            <span class="plate-number">02</span>
-            <div class="plate-bar"></div>
-            <h3 class="display">Take the city</h3>
+          <article class="card">
+            <span class="card-number condensed">02</span>
+            <h3 class="condensed">Take the city</h3>
             <p>Complete challenges, make the calls and turn the map in your favor before the city closes in.</p>
           </article>
-          <article class="plate c-objective">
-            <span class="plate-number">03</span>
-            <div class="plate-bar"></div>
-            <h3 class="display">Claim the jewels</h3>
-            <p>Win a majority of the city&rsquo;s Crown Jewels. Sweep them all and you&rsquo;ve made the perfect run.</p>
+          <article class="card">
+            <span class="card-number condensed">03</span>
+            <h3 class="condensed">Claim the jewels</h3>
+            <p>Win a majority of the city’s Crown Jewels. Sweep them all and you’ve made the perfect run.</p>
           </article>
         </div>
       </div>
@@ -523,17 +521,17 @@
     <section class="finale" aria-labelledby="final-title">
       <div class="shell">
         <img class="finale-mark" src="assets/quest-mark.png" alt="" width="256" height="266">
-        <p class="section-kicker">Coming to YouTube</p>
-        <h2 id="final-title" class="display">The first city is waiting.</h2>
+        <p class="section-kicker condensed">Coming to YouTube</p>
+        <h2 id="final-title" class="condensed">The first city is waiting.</h2>
         <p>Get the season announcement, first look and launch date before the clock starts.</p>
-        <a class="btn display" href="https://www.youtube.com/@thequestgame" target="_blank" rel="noopener noreferrer">
+        <a class="youtube-cta finale-youtube condensed" href="https://www.youtube.com/@thequestgame" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
           Subscribe on YouTube
         </a>
         <form class="signup" action="https://formspree.io/f/moeqndpb" method="POST">
-          <label class="display" for="email-bottom">Join the first-to-know list</label>
+          <label class="condensed" for="email-bottom">Join the first-to-know list</label>
           <input id="email-bottom" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required>
-          <button class="display" type="submit">Join the list</button>
+          <button class="condensed" type="submit">Join the list</button>
         </form>
         <p class="signup-note">One email when the first season is ready. No spam.</p>
       </div>
@@ -542,8 +540,8 @@
 
   <footer>
     <div class="shell footer-inner">
-      <p class="display">@thequestgame</p>
-      <p>&copy; 2026 The Quest</p>
+      <p class="condensed">@thequestgame</p>
+      <p>© 2026 The Quest</p>
     </div>
   </footer>
 </body>
